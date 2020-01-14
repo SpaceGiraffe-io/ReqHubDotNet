@@ -42,6 +42,7 @@ namespace ReqHub
             requestMessage.Headers.Add(ReqHubHeaders.ClientTimestampHeader, request.Headers[ReqHubHeaders.ClientTimestampHeader].ToString());
             requestMessage.Headers.Add(ReqHubHeaders.ClientNonceHeader, request.Headers[ReqHubHeaders.ClientNonceHeader].ToString());
             requestMessage.Headers.Add(ReqHubHeaders.ClientPublicKeyHeader, request.Headers[ReqHubHeaders.ClientPublicKeyHeader].ToString());
+            requestMessage.Headers.Add(ReqHubHeaders.ClientUrlHeader, request.Headers[ReqHubHeaders.ClientUrlHeader].ToString());
 
             var response = await httpClient.SendAsync(requestMessage, cancellationToken);
 

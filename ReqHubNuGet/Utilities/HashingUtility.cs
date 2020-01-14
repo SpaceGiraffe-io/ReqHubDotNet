@@ -12,7 +12,7 @@ namespace ReqHub
         private static readonly RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
 
         // Following https://apifriends.com/api-security/api-keys/
-        public static (string token, string timestamp, string nonce) Create(string publicKey, string privateKey, string timestamp = null, string nonce = null)
+        public static (string token, string timestamp, string nonce) Create(string publicKey, string privateKey, string timestamp = null, string nonce = null, string requestUrl = null)
         {
             if (timestamp == null)
             {
@@ -27,7 +27,7 @@ namespace ReqHub
             }
 
             // Concatenate all that with the private key for the secret
-            var secret = $"{privateKey}{timestamp}{nonce}";
+            var secret = $"{privateKey}{timestamp}{nonce}{requestUrl}";
 
             // Compute the hash
             var token = Hash(publicKey, secret);

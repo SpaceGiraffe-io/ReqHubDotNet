@@ -19,16 +19,21 @@ namespace ReqHub
         }
 
         // Following the algorithm in https://apifriends.com/api-security/api-keys/
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var (token, timestamp, nonce) = HashingUtility.Create(this.publicKey, this.privateKey);
+            // include the incoming client request url in the hash
+            var requestContent = await request.Content.ReadAsAsync<TrackRequestModel>();
+            var requestUrl = requestContent.RequestUrl;
+
+            var (token, timestamp, nonce) = HashingUtility.Create(this.publicKey, this.privateKey, requestUrl: requestUrl);
 
             request.Headers.Add(ReqHubHeaders.MerchantTokenHeader, token);
             request.Headers.Add(ReqHubHeaders.MerchantTimestampHeader, timestamp);
             request.Headers.Add(ReqHubHeaders.MerchantNonceHeader, nonce);
-            request.Headers.Add(ReqHubHeaders.MerchantPublicKeyHeader, publicKey);
+            request.Headers.Add(ReqHubHeaders.MerchantPublicKeyHeader, this.publicKey);
+            request.Headers.Add(ReqHubHeaders.MerchantUrlHeader, requestUrl);
 
-            return base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

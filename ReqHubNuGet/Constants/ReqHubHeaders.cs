@@ -14,6 +14,8 @@ namespace ReqHub
 
         public const string MerchantNonceHeader = "MerchantNonce";
 
+        public const string MerchantUrlHeader = "MerchantUrl";
+
         public const string ClientTokenHeader = "ClientToken";
 
         public const string ClientPublicKeyHeader = "ClientKey";
@@ -21,5 +23,7 @@ namespace ReqHub
         public const string ClientTimestampHeader = "ClientTimestamp";
 
         public const string ClientNonceHeader = "ClientNonce";
+
+        public const string ClientUrlHeader = "ClientUrl";
     }
 }
