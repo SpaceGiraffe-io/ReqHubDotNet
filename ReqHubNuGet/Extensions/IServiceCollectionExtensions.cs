@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace ReqHub
 {
+    public delegate IApiClient ApiClientResolver(string clientName);
+
     public static class IServiceCollectionExtensions
     {
-        public delegate IApiClient ApiClientResolver(string clientName);
-
         // Clients
         public static void AddApiClient(this IServiceCollection services, string baseAddress, string publicKey, string privateKey, string name = "ApiClient")
         {
