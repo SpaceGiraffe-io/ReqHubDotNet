@@ -21,7 +21,7 @@ namespace ReqHub
         // Following the algorithm in https://apifriends.com/api-security/api-keys/
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var requestUrl = request.RequestUri.LocalPath; // must match the url sent by the merchant (in MerchantClient.TrackAsync) or the hashes won't line up
+            var requestUrl = request.RequestUri.LocalPath; // Must match the url sent by the merchant (in MerchantClient.TrackAsync) or the hashes won't line up
 
             var (token, timestamp, nonce) = HashingUtility.Create(this.publicKey, this.privateKey, requestUrl: requestUrl);
 
