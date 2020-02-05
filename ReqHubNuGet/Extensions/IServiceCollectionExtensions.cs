@@ -20,7 +20,7 @@ namespace ReqHub
             // https://visualstudiomagazine.com/blogs/tool-tracker/2019/09/mutliple-httpclients.aspx
             services.AddHttpClient(name, (builder) =>
             {
-                builder.BaseAddress = new Uri(baseAddress);
+                builder.BaseAddress = baseAddress != null ? new Uri(baseAddress) : null;
             })
             // https://github.com/aspnet/HttpClientFactory/issues/71
             .AddHttpMessageHandler(() => new ReqHubClientHttpMessageHandler(publicKey, privateKey));

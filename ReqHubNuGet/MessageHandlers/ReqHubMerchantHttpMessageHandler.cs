@@ -34,6 +34,7 @@ namespace ReqHub
             request.Headers.Add(ReqHubHeaders.MerchantUrlHeader, requestUrl);
 
             // Client headers added in ReqHubMerchantMiddleware > MerchantClient.TrackAsync()
+            // The full trace is Middleware -> TrackAsync -> SendAsync -> this
             return await base.SendAsync(request, cancellationToken);
         }
     }
