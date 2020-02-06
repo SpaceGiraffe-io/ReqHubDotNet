@@ -18,11 +18,17 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        // Put this towards the beginning of the request pipeline.
+        // ...
+        // app.UseRouting();
+        
+        // Put this after app.UseRouting() and before app.UseEndpoints().
         // It verifies requests against the platform and either
         // continues execution or returns a 403 forbidden response
         // if the request is invalid (bad API key, contents tampered with, etc.)
         app.UseReqHub();
+        
+        // app.UseEndpoints(...);
+        // ...
     }
 }
 ```
