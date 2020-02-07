@@ -23,7 +23,7 @@ namespace ReqHub
 
             if (response.IsSuccessStatusCode)
             {
-                await next(context);
+                await this.next(context);
             }
             else
             {

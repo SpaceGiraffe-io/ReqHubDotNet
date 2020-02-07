@@ -10,6 +10,6 @@ namespace ReqHub
 {
     public interface IMerchantClient
     {
-        Task<HttpResponseMessage> TrackAsync(HttpRequest request, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpResponseMessage> TrackAsync(HttpRequest request, CancellationToken cancellationToken = default);
     }
 }

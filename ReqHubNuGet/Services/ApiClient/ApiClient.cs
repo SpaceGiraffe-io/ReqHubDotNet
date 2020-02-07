@@ -18,15 +18,20 @@ namespace ReqHub
             this.httpClient = httpClientFactory.CreateClient(name);
         }
 
-        public async Task<TResult> GetAsync<TResult>(string path, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> GetAsync<TResult>(string path, CancellationToken cancellationToken = default)
         {
-            var response = await this.httpClient.GetAsync(path, cancellationToken);
+            // Something seems funky with GetAsync() -- the debugger detaches immediately after GetAsync
+            // and it doesn't seem to use SendAsync underneath.
+            // Found this SO answer, but it isn't helpful: https://stackoverflow.com/questions/31281073/debugger-stops-after-async-httpclient-getasync-call-in-visual-studio
+            //var response = await this.httpClient.GetAsync(path, cancellationToken);
+
+            var response = await this.SendAsync(path, HttpMethod.Get, cancellationToken: cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
 
             return result;
         }
 
-        public async Task<TResult> PostAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> PostAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.PostAsync(path, content, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
@@ -34,7 +39,7 @@ namespace ReqHub
             return result;
         }
 
-        public async Task<TResult> PutAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> PutAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.PutAsync(path, content, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
@@ -42,7 +47,7 @@ namespace ReqHub
             return result;
         }
 
-        public async Task<TResult> PatchAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> PatchAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.PatchAsync(path, content, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
@@ -50,7 +55,7 @@ namespace ReqHub
             return result;
         }
 
-        public async Task<TResult> DeleteAsync<TResult>(string path, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<TResult> DeleteAsync<TResult>(string path, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.DeleteAsync(path, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
@@ -58,7 +63,7 @@ namespace ReqHub
             return result;
         }
 
-        public async Task<HttpResponseMessage> SendAsync(string path, HttpMethod method, HttpContent content = null, IDictionary<string, string> headers = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpResponseMessage> SendAsync(string path, HttpMethod method, HttpContent content = null, IDictionary<string, string> headers = null, CancellationToken cancellationToken = default)
         {
             var request = new HttpRequestMessage
             {
@@ -79,7 +84,7 @@ namespace ReqHub
             return response;
         }
 
-        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.SendAsync(request, cancellationToken);
             return response;

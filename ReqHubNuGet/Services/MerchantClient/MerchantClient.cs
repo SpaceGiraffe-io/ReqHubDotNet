@@ -23,7 +23,7 @@ namespace ReqHub
             this.name = name;
         }
 
-        public async Task<HttpResponseMessage> TrackAsync(HttpRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpResponseMessage> TrackAsync(HttpRequest request, CancellationToken cancellationToken = default)
         {
             var httpClient = this.httpClientFactory.CreateClient(this.name);
 
