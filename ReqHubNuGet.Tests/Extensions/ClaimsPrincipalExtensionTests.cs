@@ -17,7 +17,7 @@ namespace ReqHubNuGet.Tests
 
             var claimValue = user.GetClientId();
 
-            Assert.Equal(5, claimValue);
+            Assert.Equal("5", claimValue);
         }
 
         [Fact]

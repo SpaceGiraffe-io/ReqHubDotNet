@@ -9,6 +9,6 @@ namespace ReqHub
     [ExcludeFromCodeCoverage]
     public class TrackingResponseModel
     {
-        public long ClientId { get; set; }
+        public string ClientId { get; set; }
     }
 }

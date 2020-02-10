@@ -30,7 +30,7 @@ namespace ReqHub
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ReqHubClaimTypes.ClientId, trackingResponse.ClientId.ToString())
+                    new Claim(ReqHubClaimTypes.ClientId, trackingResponse.ClientId)
                 };
 
                 var reqHubIdentity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");

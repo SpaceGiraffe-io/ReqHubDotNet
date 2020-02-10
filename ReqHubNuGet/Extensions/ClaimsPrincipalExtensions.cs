@@ -7,15 +7,10 @@ namespace ReqHub
 {
     public static class ClaimsPrincipalExtensions
     {
-        public static long? GetClientId(this ClaimsPrincipal user)
+        public static string GetClientId(this ClaimsPrincipal user)
         {
             var claim = user.Claims.FirstOrDefault(x => string.Equals(x.Type, ReqHubClaimTypes.ClientId, StringComparison.Ordinal));
-            if (claim != null)
-            {
-                var id = long.Parse(claim.Value);
-                return id;
-            }
-            return null;
+            return claim?.Value;
         }
     }
 }
