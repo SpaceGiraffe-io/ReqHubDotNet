@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Description>ReqHub middleware for C# projects. Distribute your API using the ReqHub platform in just a few lines. For more information, visit https://reqhub.io.</Description>
-    <Version>1.0.5</Version>
+    <Version>1.1.0</Version>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Company>SpaceGiraffe, LLC</Company>
     <Authors>SpaceGiraffe</Authors>

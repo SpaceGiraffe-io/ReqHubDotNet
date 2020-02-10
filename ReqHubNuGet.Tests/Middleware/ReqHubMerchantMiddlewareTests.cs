@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Moq;
+using Newtonsoft.Json;
 using ReqHub;
 using System;
 using System.Collections.Generic;
@@ -44,8 +45,13 @@ namespace ReqHubNuGet.Tests.Middleware
 
             var statusCode = isSuccessStatusCode ? HttpStatusCode.OK : HttpStatusCode.UnavailableForLegalReasons;
 
+            var httpResponse = new HttpResponseMessage(statusCode);
+
+            var responseModel = new TrackingResponseModel { ClientId = 5 };
+            httpResponse.Content = new StringContent(JsonConvert.SerializeObject(responseModel), Encoding.UTF8, "application/json");
+
             merchantClientMock.Setup(x => x.TrackAsync(It.IsAny<HttpRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new HttpResponseMessage(statusCode));
+                .ReturnsAsync(httpResponse);
 
             RequestDelegate requestDelegate = (context) => Task.CompletedTask;
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ReqHub
@@ -23,6 +25,17 @@ namespace ReqHub
 
             if (response.IsSuccessStatusCode)
             {
+                var trackingResponseJson = await response.Content.ReadAsStringAsync();
+                var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ReqHubClaimTypes.ClientId, trackingResponse.ClientId.ToString())
+                };
+
+                var reqHubIdentity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");
+                context.User.AddIdentity(reqHubIdentity);
+
                 await this.next(context);
             }
             else
