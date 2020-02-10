@@ -1,5 +1,5 @@
 ## ReqHubNuGet
-ReqHub middleware for C# projects. Distribute your API using the ReqHub platform in just a few lines.
+ReqHub middleware for C# projects. Distribute your API using the ReqHub platform in just a few lines!
 For more information, visit https://reqhub.io.
 
 ## Distributing an API
@@ -33,6 +33,13 @@ public class Startup
 }
 ```
 That's it! 🎉
+
+#### Identity
+You may want to be able to uniquely identify a client.
+Inside your controller methods you can access the clientId with:
+```cs
+this.User.GetClientId();
+```
 
 #### How it works
 Clients consuming your API create a request hash using their own API keys, which the middleware forwards to the platform
