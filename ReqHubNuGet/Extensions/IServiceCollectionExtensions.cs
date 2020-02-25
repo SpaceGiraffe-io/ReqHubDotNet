@@ -42,7 +42,7 @@ namespace ReqHub
         }
 
         // Merchants
-        public static void AddReqHub(this IServiceCollection services, string publicKey, string privateKey, string baseAddress = "https://reqhub.io", string name = "ReqHub")
+        public static void AddReqHub(this IServiceCollection services, string publicKey, string privateKey, string baseAddress = "https://api.reqhub.io", string name = "ReqHub")
         {
             // Set up the HTTP client
             services.AddHttpClient(name, (builder) =>
