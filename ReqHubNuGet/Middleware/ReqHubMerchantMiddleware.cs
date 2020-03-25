@@ -40,8 +40,9 @@ namespace ReqHub
             }
             else
             {
+                var message = await response.Content?.ReadAsStringAsync();
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync("403 Forbidden.");
+                await context.Response.WriteAsync($"403 Forbidden. {message}");
             }
         }
     }
