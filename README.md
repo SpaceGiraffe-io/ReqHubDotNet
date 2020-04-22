@@ -41,6 +41,14 @@ Inside your controller methods you can access the clientId with:
 this.User.GetClientId();
 ```
 
+You can also access plan information:
+```cs
+this.User.GetPlanName();
+this.User.GetNormalizedPlanName();
+this.User.GetPlanSku();
+this.User.GetNormalizedPlanSku();
+```
+
 #### How it works
 Clients consuming your API create a request hash using their own API keys, which the middleware forwards to the platform
 along with your request hash. If everything matches up on the platform, the request is allowed to continue.

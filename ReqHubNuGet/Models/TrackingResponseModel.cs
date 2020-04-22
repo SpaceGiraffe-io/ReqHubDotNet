@@ -10,5 +10,13 @@ namespace ReqHub
     public class TrackingResponseModel
     {
         public string ClientId { get; set; }
+
+        public string PlanName { get; set; }
+
+        public string NormalizedPlanName { get; set; }
+
+        public string PlanSku { get; set; }
+
+        public string NormalizedPlanSku { get; set; }
     }
 }
