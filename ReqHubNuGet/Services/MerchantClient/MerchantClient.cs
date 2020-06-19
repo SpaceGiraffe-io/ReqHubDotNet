@@ -12,21 +12,17 @@ using System.Threading.Tasks;
 
 namespace ReqHub
 {
-    public class MerchantClient : IMerchantClient
+    public class MerchantClient : IMerchantClient, IDisposable
     {
-        private readonly IHttpClientFactory httpClientFactory;
-        private readonly string name;
+        private readonly HttpClient httpClient;
 
         public MerchantClient(IHttpClientFactory httpClientFactory, string name)
         {
-            this.httpClientFactory = httpClientFactory;
-            this.name = name;
+            this.httpClient = httpClientFactory.CreateClient(name);
         }
 
         public async Task<HttpResponseMessage> TrackAsync(HttpRequest request, CancellationToken cancellationToken = default)
         {
-            var httpClient = this.httpClientFactory.CreateClient(this.name);
-
             var json = JsonConvert.SerializeObject(new TrackRequestModel { RequestUrl = request.Path });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -47,6 +43,11 @@ namespace ReqHub
             var response = await httpClient.SendAsync(requestMessage, cancellationToken);
 
             return response;
+        }
+
+        public void Dispose()
+        {
+            this.httpClient.Dispose();
         }
     }
 }

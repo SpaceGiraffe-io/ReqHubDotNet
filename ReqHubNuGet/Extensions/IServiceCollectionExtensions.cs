@@ -52,7 +52,7 @@ namespace ReqHub
             .AddHttpMessageHandler(() => new ReqHubMerchantHttpMessageHandler(publicKey, privateKey));
 
             // Add the API client
-            services.AddTransient<IMerchantClient, MerchantClient>((serviceProvider) =>
+            services.AddSingleton<IMerchantClient, MerchantClient>((serviceProvider) =>
             {
                 var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
                 return new MerchantClient(httpClientFactory, name);
