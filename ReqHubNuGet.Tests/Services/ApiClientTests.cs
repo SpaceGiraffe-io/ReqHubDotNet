@@ -44,16 +44,6 @@ namespace ReqHubNuGet.Tests.Services
         }
 
         [Fact]
-        public void TestPatchAsync()
-        {
-            var service = this.CreateService();
-
-            var result = service.PatchAsync<object>("/", new StringContent("test"));
-
-            Assert.NotNull(result);
-        }
-
-        [Fact]
         public void TestDeleteAsync()
         {
             var service = this.CreateService();

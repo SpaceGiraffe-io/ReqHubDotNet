@@ -47,14 +47,6 @@ namespace ReqHub
             return result;
         }
 
-        public async Task<TResult> PatchAsync<TResult>(string path, HttpContent content, CancellationToken cancellationToken = default)
-        {
-            var response = await this.httpClient.PatchAsync(path, content, cancellationToken);
-            var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
-
-            return result;
-        }
-
         public async Task<TResult> DeleteAsync<TResult>(string path, CancellationToken cancellationToken = default)
         {
             var response = await this.httpClient.DeleteAsync(path, cancellationToken);
