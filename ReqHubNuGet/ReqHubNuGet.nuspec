@@ -15,10 +15,11 @@
     <copyright>Copyright 2019</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
       <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
       <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
-      <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.0" />
-      <dependency id="Microsoft.Extensions.Http" version="3.1.0" />
+      <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+      <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
     </dependencies>
   </metadata>
 </package>
