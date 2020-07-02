@@ -27,7 +27,6 @@ namespace ReqHub
 
             var response = await this.SendAsync(path, HttpMethod.Get, cancellationToken: cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
-
             return result;
         }
 
@@ -35,7 +34,6 @@ namespace ReqHub
         {
             var response = await this.httpClient.PostAsync(path, content, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
-
             return result;
         }
 
@@ -43,7 +41,6 @@ namespace ReqHub
         {
             var response = await this.httpClient.PutAsync(path, content, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
-
             return result;
         }
 
@@ -51,7 +48,6 @@ namespace ReqHub
         {
             var response = await this.httpClient.DeleteAsync(path, cancellationToken);
             var result = await response.Content.ReadAsAsync<TResult>(cancellationToken);
-
             return result;
         }
 

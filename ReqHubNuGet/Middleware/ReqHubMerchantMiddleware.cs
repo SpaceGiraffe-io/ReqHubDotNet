@@ -21,7 +21,9 @@ namespace ReqHub
 
         public async Task Invoke(HttpContext context)
         {
-            var response = await this.merchantClient.TrackAsync(context.Request);
+            var path = context.Request.Path;
+            var headers = context.Request.Headers.ToDictionary(x => x.Key, x => x.Value.ToString());
+            var response = await this.merchantClient.TrackAsync(path, headers);
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,7 +46,7 @@ namespace ReqHub
             {
                 var message = await response.Content?.ReadAsStringAsync();
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync($"403 Forbidden. {message}");
+                await context.Response.WriteAsync($"{(int)response.StatusCode} {response.ReasonPhrase}. {message}");
             }
         }
 
