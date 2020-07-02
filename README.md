@@ -1,4 +1,4 @@
-## ReqHubNuGet
+## ReqHubDotNet
 ReqHub middleware for C# projects. Distribute your API using the ReqHub platform in just a few lines!
 For more information, visit https://reqhub.io.
 
@@ -66,10 +66,10 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Visit https://reqhub.io to get your API keys
-        services.AddApiClient("https://api-base-address/", "yourPublicKey", "yourPrivateKey", "serviceName");
+        services.AddApiClient("https://api-base-address/", "yourClientPublicKey", "yourClientPrivateKey", "serviceName");
         
         // Add as many as you like!
-        services.AddApiClient("https://api2-base-address/", "anotherPublicKey", "anotherPrivateKey", "serviceName2");
+        services.AddApiClient("https://api2-base-address/", "anotherClientPublicKey", "anotherClientPrivateKey", "serviceName2");
     }
 }
 ```
@@ -90,9 +90,35 @@ public class ExampleController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<Example>> Get()
     {
-        return await this.exampleApiClient.GetAsync<IEnumerable<Example>>("example/endpoint");
+        return await this.exampleApiClient.GetAsync<IEnumerable<Example>>("/example/endpoint");
     }
 }
+```
+
+## .NET Framework
+For those of you not using .NET Core, ReqHub supports .NET Framework (4.5+) WebApi projects.
+
+```cs
+/// FilterConfig.cs
+
+public class FilterConfig
+{
+    public static void RegisterGlobalFilters(HttpFilterCollection filters)
+    {
+        // ...
+        filters.Add(new ReqHubAttribute("yourPublicKey", "yourPrivateKey"));
+    }
+}
+```
+
+And to consume an API:
+
+```cs
+var httpClient = HttpClientFactory.Create(new ReqHubClientHttpMessageHandler("yourClientPublicKey", "yourClientPrivateKey"));
+httpClient.BaseAddress = new Uri("https://api-base-address/");
+var exampleApiClient = new ApiClient(httpClient);
+
+await this.exampleApiClient.GetAsync<IEnumerable<Example>>("/example/endpoint");
 ```
 
 ## Contributing

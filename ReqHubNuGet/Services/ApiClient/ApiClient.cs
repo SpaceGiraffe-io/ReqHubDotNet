@@ -13,6 +13,11 @@ namespace ReqHub
     {
         private readonly HttpClient httpClient;
 
+        public ApiClient(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
+
         public ApiClient(IHttpClientFactory httpClientFactory, string name)
         {
             this.httpClient = httpClientFactory.CreateClient(name);
