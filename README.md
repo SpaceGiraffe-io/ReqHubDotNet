@@ -111,9 +111,11 @@ public class FilterConfig
 }
 ```
 
-And to consume an API:
+To consume an API:
 
 ```cs
+// A little bit of setup
+// (note that the HttpClient should be instantiated once and reused throughout the life of the application https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
 var httpClient = HttpClientFactory.Create(new ReqHubClientHttpMessageHandler("yourClientPublicKey", "yourClientPrivateKey"));
 httpClient.BaseAddress = new Uri("https://api-base-address/");
 var exampleApiClient = new ApiClient(httpClient);
