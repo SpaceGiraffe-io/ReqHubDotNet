@@ -66,10 +66,10 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Visit https://reqhub.io to get your API keys
-        services.AddApiClient("https://api-base-address/", "yourClientPublicKey", "yourClientPrivateKey", "serviceName");
+        services.AddApiClient("https://api-base-address", "yourClientPublicKey", "yourClientPrivateKey", "serviceName");
         
         // Add as many as you like!
-        services.AddApiClient("https://api2-base-address/", "anotherClientPublicKey", "anotherClientPrivateKey", "serviceName2");
+        services.AddApiClient("https://api2-base-address", "anotherClientPublicKey", "anotherClientPrivateKey", "serviceName2");
     }
 }
 ```
@@ -117,7 +117,7 @@ To consume an API:
 // A little bit of setup
 // (note that the HttpClient should be instantiated once and reused throughout the life of the application https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
 var httpClient = HttpClientFactory.Create(new ReqHubClientHttpMessageHandler("yourClientPublicKey", "yourClientPrivateKey"));
-httpClient.BaseAddress = new Uri("https://api-base-address/");
+httpClient.BaseAddress = new Uri("https://api-base-address");
 var exampleApiClient = new ApiClient(httpClient);
 
 await this.exampleApiClient.GetAsync<IEnumerable<Example>>("/example/endpoint");
