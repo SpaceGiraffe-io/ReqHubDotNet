@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqHubNuGet", "ReqHubNuGet\ReqHubNuGet.csproj", "{E28D060B-0A79-4210-9F59-B9601E6F10D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqHubDotNet", "ReqHubDotNet\ReqHubDotNet.csproj", "{E28D060B-0A79-4210-9F59-B9601E6F10D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReqHubNuGet.Tests", "ReqHubNuGet.Tests\ReqHubNuGet.Tests.csproj", "{7EEA8C9A-BB4A-4C53-A34E-F408754DB885}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqHubDotNet.Tests", "ReqHubDotNet.Tests\ReqHubDotNet.Tests.csproj", "{7EEA8C9A-BB4A-4C53-A34E-F408754DB885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

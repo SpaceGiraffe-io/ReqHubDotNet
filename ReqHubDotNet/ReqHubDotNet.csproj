@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,7 +10,7 @@
     <Product>ReqHub</Product>
     <Copyright />
     <PackageProjectUrl>https://reqhub.io</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SpaceGiraffe-io/ReqHubNuGet</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SpaceGiraffe-io/ReqHubDotNet</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>API management, API monetization</PackageTags>
     <PackageId>ReqHub</PackageId>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace ReqHubNuGet.Tests.Utilities
+namespace ReqHubDotNet.Tests.Utilities
 {
     public class HashingUtilityTests
     {

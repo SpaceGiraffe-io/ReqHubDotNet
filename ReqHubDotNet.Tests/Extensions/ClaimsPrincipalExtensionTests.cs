@@ -1,4 +1,4 @@
-namespace ReqHubNuGet.Tests
+namespace ReqHubDotNet.Tests
 {
     using ReqHub;
     using System;

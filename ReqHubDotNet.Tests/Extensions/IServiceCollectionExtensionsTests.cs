@@ -7,7 +7,7 @@ using System.Text;
 using Xunit;
 using Xunit.Sdk;
 
-namespace ReqHubNuGet.Tests.Extensions
+namespace ReqHubDotNet.Tests.Extensions
 {
     public class IServiceCollectionExtensionsTests
     {

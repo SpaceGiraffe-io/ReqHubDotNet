@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReqHubNuGet\ReqHubNuGet.csproj" />
+    <ProjectReference Include="..\ReqHubDotNet\ReqHubDotNet.csproj" />
   </ItemGroup>
 
 </Project>

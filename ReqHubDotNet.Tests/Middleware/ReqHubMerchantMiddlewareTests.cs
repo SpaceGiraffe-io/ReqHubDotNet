@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ReqHubNuGet.Tests.Middleware
+namespace ReqHubDotNet.Tests.Middleware
 {
     public class ReqHubMerchantMiddlewareTests
     {
@@ -50,7 +50,7 @@ namespace ReqHubNuGet.Tests.Middleware
             var responseModel = new TrackingResponseModel { ClientId = "5" };
             httpResponse.Content = new StringContent(JsonConvert.SerializeObject(responseModel), Encoding.UTF8, "application/json");
 
-            merchantClientMock.Setup(x => x.TrackAsync(It.IsAny<HttpRequest>(), It.IsAny<CancellationToken>()))
+            merchantClientMock.Setup(x => x.TrackAsync(It.IsAny<string>(), It.IsAny<IDictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(httpResponse);
 
             RequestDelegate requestDelegate = (context) => Task.CompletedTask;

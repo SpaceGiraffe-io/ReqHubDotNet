@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ReqHubNuGet.Tests.MessageHandlers
+namespace ReqHubDotNet.Tests.MessageHandlers
 {
     public class ReqHubClientHttpMessageHandlerTests
     {

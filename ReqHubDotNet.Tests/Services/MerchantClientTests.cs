@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ReqHubNuGet.Tests.Services
+namespace ReqHubDotNet.Tests.Services
 {
     public class MerchantClientTests
     {
@@ -19,17 +19,18 @@ namespace ReqHubNuGet.Tests.Services
         {
             var service = this.CreateService();
 
-            var context = new DefaultHttpContext();
+            var path = "/test";
 
-            context.Request.Path = "/test";
+            var headers = new Dictionary<string, string>
+            {
+                { ReqHubHeaders.ClientTokenHeader, "test" },
+                { ReqHubHeaders.ClientNonceHeader, "test" },
+                { ReqHubHeaders.ClientPublicKeyHeader, "test" },
+                { ReqHubHeaders.ClientTimestampHeader, "test" },
+                { ReqHubHeaders.ClientUrlHeader, "test" }
+            };
 
-            context.Request.Headers.Add(ReqHubHeaders.ClientTokenHeader, "test");
-            context.Request.Headers.Add(ReqHubHeaders.ClientTimestampHeader, "test");
-            context.Request.Headers.Add(ReqHubHeaders.ClientNonceHeader, "test");
-            context.Request.Headers.Add(ReqHubHeaders.ClientPublicKeyHeader, "test");
-            context.Request.Headers.Add(ReqHubHeaders.ClientUrlHeader, "test");
-
-            var result = service.TrackAsync(context.Request);
+            var result = service.TrackAsync(path, headers);
 
             Assert.NotNull(result);
         }

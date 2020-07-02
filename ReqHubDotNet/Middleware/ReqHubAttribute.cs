@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +13,7 @@ using System.Web.Http.Controllers;
 
 namespace ReqHub
 {
+    [ExcludeFromCodeCoverage] // not sure how to test -- dependencies are fixed and IsAuthorized() isn't public
     public class ReqHubAttribute : AuthorizeAttribute
     {
         private static HttpClient httpClient;
