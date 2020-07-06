@@ -15,11 +15,85 @@
     <copyright>Copyright 2019</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
-      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
-      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
-      <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
-      <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
-      <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      <!--only include WebApi.Core for .Net Framework-->
+      <group targetFramework="net45">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net451">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net452">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net46">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net461">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net462">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net47">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net471">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net472">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+      <group targetFramework="net48">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
+
+      <!--default-->
+      <group>
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.5" />
+        <dependency id="Microsoft.Extensions.Http" version="3.1.5" />
+      </group>
     </dependencies>
   </metadata>
 </package>

@@ -45,7 +45,7 @@ namespace ReqHub
             requestMessage.Headers.Add(ReqHubHeaders.ClientPublicKeyHeader, this.GetHeader(headers, ReqHubHeaders.ClientPublicKeyHeader));
             requestMessage.Headers.Add(ReqHubHeaders.ClientUrlHeader, this.GetHeader(headers, ReqHubHeaders.ClientUrlHeader));
 
-            var response = httpClient.SendAsync(requestMessage, cancellationToken).Result;
+            var response = await httpClient.SendAsync(requestMessage, cancellationToken);
             return response;
         }
 
