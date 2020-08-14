@@ -13,7 +13,7 @@ namespace ReqHub
     public static class IServiceCollectionExtensions
     {
         // Clients
-        public static void AddApiClient(this IServiceCollection services, string baseAddress, string publicKey, string privateKey, string name = "ApiClient")
+        public static IServiceCollection AddApiClient(this IServiceCollection services, string baseAddress, string publicKey, string privateKey, string name = "ApiClient")
         {
             // Set up the HTTP client
             // https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netframework-4.8
@@ -39,10 +39,12 @@ namespace ReqHub
                 var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
                 return new ApiClient(httpClientFactory, clientName);
             });
+
+            return services;
         }
 
         // Merchants
-        public static void AddReqHub(this IServiceCollection services, string publicKey, string privateKey, string baseAddress = "https://api.reqhub.io", string name = "ReqHub")
+        public static IServiceCollection AddReqHub(this IServiceCollection services, string publicKey, string privateKey, string baseAddress = "https://api.reqhub.io", string name = "ReqHub")
         {
             // Set up the HTTP client
             services.AddHttpClient(name, (builder) =>
@@ -57,6 +59,8 @@ namespace ReqHub
                 var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
                 return new MerchantClient(httpClientFactory, name);
             });
+
+            return services;
         }
     }
 }
