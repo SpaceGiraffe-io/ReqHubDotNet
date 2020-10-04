@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,22 +16,48 @@ using System.Web.Http.Controllers;
 namespace ReqHub
 {
     [ExcludeFromCodeCoverage] // not sure how to test -- dependencies are fixed and IsAuthorized() isn't public
-    public class ReqHubAttribute : AuthorizeAttribute
+    public class ReqHubAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
-        private static HttpClient httpClient;
+        private HttpClient httpClient;
 
         private readonly IMerchantClient merchantClient;
 
         public ReqHubAttribute(string publicKey, string privateKey, string baseAddress = "https://api.reqhub.io")
         {
-            if (httpClient == null)
+            if (this.httpClient == null)
             {
-                httpClient = HttpClientFactory.Create(new ReqHubMerchantHttpMessageHandler(publicKey, privateKey));
-                httpClient.BaseAddress = new Uri(baseAddress);
+                this.httpClient = HttpClientFactory.Create(new ReqHubMerchantHttpMessageHandler(publicKey, privateKey));
+                this.httpClient.BaseAddress = new Uri(baseAddress);
             }
-            this.merchantClient = new MerchantClient(httpClient);
+            this.merchantClient = new MerchantClient(this.httpClient);
         }
 
+        // .Net Core
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext filterContext)
+        {
+            var context = filterContext.HttpContext;
+            var path = context.Request.Path;
+            var headers = context.Request.Headers.ToDictionary(x => x.Key, x => x.Value.FirstOrDefault());
+            var response = await this.merchantClient.TrackAsync(path, headers);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var trackingResponseJson = response.Content.ReadAsStringAsync().Result;
+                var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
+
+                var identity = this.merchantClient.CreateReqHubIdentity(trackingResponse);
+                context.User.AddIdentity(identity);
+            }
+            else
+            {
+                var message = response.Content.ReadAsStringAsync().Result;
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync($"{(int)response.StatusCode} {response.ReasonPhrase}. {message}");
+                filterContext.Result = new ForbidResult();
+            }
+        }
+
+        // .Net Framework
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             var path = actionContext.Request.RequestUri.LocalPath;
