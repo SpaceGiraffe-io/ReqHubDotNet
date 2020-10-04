@@ -15,7 +15,7 @@ namespace ReqHubDotNet.Tests.Services
     public class MerchantClientTests
     {
         [Fact]
-        public void TestTrackAsync()
+        public async Task TestTrackAsync()
         {
             var service = this.CreateService();
 
@@ -30,9 +30,24 @@ namespace ReqHubDotNet.Tests.Services
                 { ReqHubHeaders.ClientUrlHeader, "test" }
             };
 
-            var result = service.TrackAsync(path, headers);
+            var result = await service.TrackAsync(path, headers);
 
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void TestCreateReqHubIdentity()
+        {
+            var service = this.CreateService();
+
+            var trackingResponse = new TrackingResponseModel
+            {
+                ClientId = "test"
+            };
+
+            var result = service.CreateReqHubIdentity(trackingResponse);
+
+            Assert.Equal("test", result.FindFirst(ReqHubClaimTypes.ClientId).Value);
         }
 
         private IMerchantClient CreateService()

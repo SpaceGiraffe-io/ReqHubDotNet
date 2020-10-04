@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,6 +50,19 @@ namespace ReqHub
             return response;
         }
 
+        public ClaimsIdentity CreateReqHubIdentity(TrackingResponseModel trackingResponse)
+        {
+            var claims = new List<Claim>();
+            this.AddClaim(claims, ReqHubClaimTypes.ClientId, trackingResponse.ClientId);
+            this.AddClaim(claims, ReqHubClaimTypes.PlanName, trackingResponse.PlanName);
+            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanName, trackingResponse.NormalizedPlanName);
+            this.AddClaim(claims, ReqHubClaimTypes.PlanSku, trackingResponse.PlanSku);
+            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanSku, trackingResponse.NormalizedPlanSku);
+
+            var reqHubIdentity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");
+            return reqHubIdentity;
+        }
+
         public void Dispose()
         {
             this.httpClient.Dispose();
@@ -57,6 +71,14 @@ namespace ReqHub
         private string GetHeader(IDictionary<string, string> headers, string key)
         {
             return headers.ContainsKey(key) ? headers[key] : default;
+        }
+
+        private void AddClaim(IList<Claim> claims, string claimType, string claimValue)
+        {
+            if (claimValue != null)
+            {
+                claims.Add(new Claim(claimType, claimValue));
+            }
         }
     }
 }

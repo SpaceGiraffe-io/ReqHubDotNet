@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,6 +53,9 @@ namespace ReqHubDotNet.Tests.Middleware
 
             merchantClientMock.Setup(x => x.TrackAsync(It.IsAny<string>(), It.IsAny<IDictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(httpResponse);
+
+            merchantClientMock.Setup(x => x.CreateReqHubIdentity(It.IsAny<TrackingResponseModel>()))
+                .Returns(new ClaimsIdentity());
 
             RequestDelegate requestDelegate = (context) => Task.CompletedTask;
 

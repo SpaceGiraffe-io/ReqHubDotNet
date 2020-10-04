@@ -41,14 +41,7 @@ namespace ReqHub
                 var trackingResponseJson = response.Content.ReadAsStringAsync().Result;
                 var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
 
-                var claims = new List<Claim>();
-                this.AddClaim(claims, ReqHubClaimTypes.ClientId, trackingResponse.ClientId);
-                this.AddClaim(claims, ReqHubClaimTypes.PlanName, trackingResponse.PlanName);
-                this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanName, trackingResponse.NormalizedPlanName);
-                this.AddClaim(claims, ReqHubClaimTypes.PlanSku, trackingResponse.PlanSku);
-                this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanSku, trackingResponse.NormalizedPlanSku);
-
-                var identity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");
+                var identity = this.merchantClient.CreateReqHubIdentity(trackingResponse);
                 var claimsPrincipal = new ClaimsPrincipal(identity);
                 actionContext.RequestContext.Principal = claimsPrincipal;
             }
@@ -61,14 +54,6 @@ namespace ReqHub
             }
 
             return true; // if actionContext.Response is set, the controller doesn't get invoked
-        }
-
-        private void AddClaim(IList<Claim> claims, string claimType, string claimValue)
-        {
-            if (claimValue != null)
-            {
-                claims.Add(new Claim(claimType, claimValue));
-            }
         }
     }
 }
