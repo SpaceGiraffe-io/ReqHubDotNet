@@ -121,5 +121,44 @@ namespace ReqHubDotNet.Tests
 
             Assert.Null(claimValue);
         }
+
+        [Fact]
+        public void TestIsTrial()
+        {
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ReqHubClaimTypes.IsTrial, "true")
+            }));
+
+            var claimValue = user.IsTrial();
+
+            Assert.True(claimValue);
+        }
+
+        [Fact]
+        public void TestIsTrial_False()
+        {
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ReqHubClaimTypes.IsTrial, "false")
+            }));
+
+            var claimValue = user.IsTrial();
+
+            Assert.False(claimValue);
+        }
+
+        [Fact]
+        public void TestIsTrial_CaseInsensitive()
+        {
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                 new Claim(ReqHubClaimTypes.IsTrial, "True")
+            }));
+
+            var claimValue = user.IsTrial();
+
+            Assert.True(claimValue);
+        }
     }
 }

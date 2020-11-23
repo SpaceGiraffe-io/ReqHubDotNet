@@ -58,6 +58,7 @@ namespace ReqHub
             this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanName, trackingResponse.NormalizedPlanName);
             this.AddClaim(claims, ReqHubClaimTypes.PlanSku, trackingResponse.PlanSku);
             this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanSku, trackingResponse.NormalizedPlanSku);
+            this.AddClaim(claims, ReqHubClaimTypes.IsTrial, trackingResponse.IsTrial.ToString());
 
             var reqHubIdentity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");
             return reqHubIdentity;

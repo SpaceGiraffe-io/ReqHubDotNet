@@ -15,5 +15,7 @@ namespace ReqHub
         public const string PlanSku = "https://reqhub.io/identity/claims/plansku";
 
         public const string NormalizedPlanSku = "https://reqhub.io/identity/claims/plansku/normalized";
+
+        public const string IsTrial = "https://reqhub.io/identity/claims/trial";
     }
 }

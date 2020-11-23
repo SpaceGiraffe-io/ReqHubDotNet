@@ -18,5 +18,7 @@ namespace ReqHub
         public string PlanSku { get; set; }
 
         public string NormalizedPlanSku { get; set; }
+
+        public bool IsTrial { get; set; }
     }
 }
