@@ -2,6 +2,12 @@
 ReqHub middleware for C# projects. Distribute your API using the ReqHub platform in just a few lines!
 For more information, visit https://reqhub.io.
 
+## Installation
+ReqHub for .Net is available on NuGet: https://www.nuget.org/packages/ReqHub
+```
+Install-Package ReqHub
+```
+
 ## Distributing an API
 To distribute an API for clients to consume with API keys, add these two lines to your `Startup.cs`:
 
@@ -122,6 +128,47 @@ var exampleApiClient = new ApiClient(httpClient);
 
 await this.exampleApiClient.GetAsync<IEnumerable<Example>>("/example/endpoint");
 ```
+
+## Per-endpoint configuration
+ReqHub can be configured on a per-endpoint or per-controller basis. This is useful if you only want to publish a portion of your API, or if you want to include multiple small APIs in a single server instance to reduce hosting costs.
+
+Simply apply the `ReqHub` attribute and you're all set!
+
+```cs
+// ReqHub attribute on a single action method
+
+[HttpGet("test")]
+[ReqHub(publicKey: "yourPublicKey", privateKey: "yourPrivateKey")]
+public IActionResult Test()
+{
+    return this.Ok("Success!");
+}
+```
+
+Placing the attribute at the controller level will apply to all its endpoints:
+```cs
+// ReqHub attribute on a controller
+
+[Route("example")]
+[ApiController]
+[ReqHub(publicKey: "yourPublicKey", privateKey: "yourPrivateKey")]
+public class ExampleController : ControllerBase
+{
+    [HttpGet("test1")]
+    public IActionResult Test1()
+    {
+        return this.Ok("Success!");
+    }
+        
+    [HttpGet("test2")]
+    public IActionResult Test2()
+    {
+        return this.Ok("Success!");
+    }
+}
+```
+
+The examples here were for the latest .Net, but the same applies to .Net Framework projects.
 
 ## Contributing
 Go for it! If we're missing something or you're running into a problem, either let us know in an issue or send us a pull request.
