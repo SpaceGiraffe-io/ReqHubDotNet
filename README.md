@@ -40,20 +40,20 @@ public class Startup
 ```
 That's it! 🎉
 
-#### Identity
-You may want to be able to uniquely identify a client.
-Inside your controller methods you can access the clientId with:
+## Plan information
+Plan information can be accessed from the `User` object.
+You can use this data to change or restrict functionality by plan.
+
 ```cs
-this.User.GetClientId();
+this.User.GetClientId();           // A clientId unique to the user
+this.User.GetPlanName();           // The plan name as entered, like "Extra awesome"
+this.User.GetNormalizedPlanName(); // The plan name whitespace and special characters removed, like "Extra-awesome"
+this.User.GetPlanSku();            // The plan SKU as entered, like "Extra awesome SKU!!!"
+this.User.GetNormalizedPlanSku();  // The plan SKU with whitespace and special characters removed, like "Extra-awesome-SKU"
+this.User.IsTrial();               // Indicates whether the user is currently in a trial period
 ```
 
-You can also access plan information:
-```cs
-this.User.GetPlanName();
-this.User.GetNormalizedPlanName();
-this.User.GetPlanSku();
-this.User.GetNormalizedPlanSku();
-```
+Check out our docs for [testing pricing plans](https://docs.reqhub.io/#/recipes/simulating-pricing-plans) for more information.
 
 #### How it works
 Clients consuming your API create a request hash using their own API keys, which the middleware forwards to the platform
