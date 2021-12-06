@@ -40,21 +40,6 @@ public class Startup
 ```
 That's it! 🎉
 
-## Plan information
-Plan information can be accessed from the `User` object.
-You can use this data to change or restrict functionality by plan.
-
-```cs
-this.User.GetClientId();           // A clientId unique to the user
-this.User.GetPlanName();           // The plan name as entered, like "Extra awesome"
-this.User.GetNormalizedPlanName(); // The plan name whitespace and special characters removed, like "Extra-awesome"
-this.User.GetPlanSku();            // The plan SKU as entered, like "Extra awesome SKU!!!"
-this.User.GetNormalizedPlanSku();  // The plan SKU with whitespace and special characters removed, like "Extra-awesome-SKU"
-this.User.IsTrial();               // Indicates whether the user is currently in a trial period
-```
-
-Check out our docs for [testing pricing plans](https://docs.reqhub.io/#/recipes/simulating-pricing-plans) for more information.
-
 #### How it works
 Clients consuming your API create a request hash using their own API keys, which the middleware forwards to the platform
 along with your request hash. If everything matches up on the platform, the request is allowed to continue.
@@ -169,6 +154,21 @@ public class ExampleController : ControllerBase
 ```
 
 The examples here were for the latest .Net, but the same applies to .Net Framework projects.
+
+## Plan information
+Plan information can be accessed from the `User` object.
+You can use this data to change or restrict functionality by plan.
+
+```cs
+this.User.GetClientId();           // A clientId unique to the user
+this.User.GetPlanName();           // The plan name as entered, like "Extra awesome"
+this.User.GetNormalizedPlanName(); // The plan name whitespace and special characters removed, like "Extra-awesome"
+this.User.GetPlanSku();            // The plan SKU as entered, like "Extra awesome SKU!!!"
+this.User.GetNormalizedPlanSku();  // The plan SKU with whitespace and special characters removed, like "Extra-awesome-SKU"
+this.User.IsTrial();               // Indicates whether the user is currently in a trial period
+```
+
+Check out our docs for [testing pricing plans](https://docs.reqhub.io/#/recipes/simulating-pricing-plans) for more information.
 
 ## Contributing
 Go for it! If we're missing something or you're running into a problem, either let us know in an issue or send us a pull request.
