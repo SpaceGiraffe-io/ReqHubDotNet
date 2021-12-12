@@ -15,7 +15,7 @@ namespace ReqHubDotNet.Tests.Services
     public class MerchantClientTests
     {
         [Fact]
-        public async Task TestTrackAsync()
+        public async Task TestVerifyAsync()
         {
             var service = this.CreateService();
 
@@ -30,7 +30,7 @@ namespace ReqHubDotNet.Tests.Services
                 { ReqHubHeaders.ClientUrlHeader, "test" }
             };
 
-            var result = await service.TrackAsync(path, headers);
+            var result = await service.VerifyAsync(path, headers);
 
             Assert.NotNull(result);
         }
@@ -40,12 +40,12 @@ namespace ReqHubDotNet.Tests.Services
         {
             var service = this.CreateService();
 
-            var trackingResponse = new TrackingResponseModel
+            var verificationResponse = new VerificationResponseModel
             {
                 ClientId = "test"
             };
 
-            var result = service.CreateReqHubIdentity(trackingResponse);
+            var result = service.CreateReqHubIdentity(verificationResponse);
 
             Assert.Equal("test", result.FindFirst(ReqHubClaimTypes.ClientId).Value);
         }

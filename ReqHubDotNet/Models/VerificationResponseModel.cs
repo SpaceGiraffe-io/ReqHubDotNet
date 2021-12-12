@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ReqHub
 {
     [ExcludeFromCodeCoverage]
-    public class TrackingResponseModel
+    public class VerificationResponseModel
     {
         public string ClientId { get; set; }
 

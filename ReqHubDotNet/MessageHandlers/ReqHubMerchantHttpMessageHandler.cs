@@ -22,7 +22,7 @@ namespace ReqHub
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // Include the incoming client request url in the hash
-            var requestContent = await request.Content.ReadAsAsync<TrackRequestModel>();
+            var requestContent = await request.Content.ReadAsAsync<VerificationRequestModel>();
             var requestUrl = requestContent.RequestUrl;
 
             var (token, timestamp, nonce) = HashingUtility.Create(this.publicKey, this.privateKey, requestUrl: requestUrl);
@@ -33,8 +33,8 @@ namespace ReqHub
             request.Headers.Add(ReqHubHeaders.MerchantPublicKeyHeader, this.publicKey);
             request.Headers.Add(ReqHubHeaders.MerchantUrlHeader, requestUrl);
 
-            // Client headers added in ReqHubMerchantMiddleware > MerchantClient.TrackAsync()
-            // The full trace is Middleware -> TrackAsync -> SendAsync -> this
+            // Client headers added in ReqHubMerchantMiddleware > MerchantClient.VerifyAsync()
+            // The full trace is Middleware -> VerifyAsync -> SendAsync -> this
             return await base.SendAsync(request, cancellationToken);
         }
     }

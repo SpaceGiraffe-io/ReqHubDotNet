@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ReqHub
 {
     [ExcludeFromCodeCoverage]
-    public class TrackRequestModel
+    public class VerificationRequestModel
     {
         public string RequestUrl { get; set; }
     }

@@ -38,14 +38,14 @@ namespace ReqHub
             var context = filterContext.HttpContext;
             var path = context.Request.Path;
             var headers = context.Request.Headers.ToDictionary(x => x.Key, x => x.Value.FirstOrDefault());
-            var response = await this.merchantClient.TrackAsync(path, headers);
+            var response = await this.merchantClient.VerifyAsync(path, headers);
 
             if (response.IsSuccessStatusCode)
             {
-                var trackingResponseJson = response.Content.ReadAsStringAsync().Result;
-                var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
+                var verificationResponseJson = response.Content.ReadAsStringAsync().Result;
+                var verificationResponse = JsonConvert.DeserializeObject<VerificationResponseModel>(verificationResponseJson);
 
-                var identity = this.merchantClient.CreateReqHubIdentity(trackingResponse);
+                var identity = this.merchantClient.CreateReqHubIdentity(verificationResponse);
                 context.User.AddIdentity(identity);
             }
             else
@@ -62,14 +62,14 @@ namespace ReqHub
         {
             var path = actionContext.Request.RequestUri.LocalPath;
             var headers = actionContext.Request.Headers.ToDictionary(x => x.Key, x => x.Value.FirstOrDefault());
-            var response = Task.Run(() => this.merchantClient.TrackAsync(path, headers)).Result;
+            var response = Task.Run(() => this.merchantClient.VerifyAsync(path, headers)).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                var trackingResponseJson = response.Content.ReadAsStringAsync().Result;
-                var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
+                var verificationResponseJson = response.Content.ReadAsStringAsync().Result;
+                var verificationResponse = JsonConvert.DeserializeObject<VerificationResponseModel>(verificationResponseJson);
 
-                var identity = this.merchantClient.CreateReqHubIdentity(trackingResponse);
+                var identity = this.merchantClient.CreateReqHubIdentity(verificationResponse);
                 var claimsPrincipal = new ClaimsPrincipal(identity);
                 actionContext.RequestContext.Principal = claimsPrincipal;
             }

@@ -11,8 +11,8 @@ namespace ReqHub
 {
     public interface IMerchantClient
     {
-        Task<HttpResponseMessage> TrackAsync(string path, IDictionary<string, string> headers, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> VerifyAsync(string path, IDictionary<string, string> headers, CancellationToken cancellationToken = default);
 
-        ClaimsIdentity CreateReqHubIdentity(TrackingResponseModel trackingResponse);
+        ClaimsIdentity CreateReqHubIdentity(VerificationResponseModel verificationResponse);
     }
 }

@@ -27,15 +27,15 @@ namespace ReqHub
             this.httpClient = httpClientFactory.CreateClient(name);
         }
 
-        public async Task<HttpResponseMessage> TrackAsync(string path, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+        public async Task<HttpResponseMessage> VerifyAsync(string path, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
         {
-            var json = JsonConvert.SerializeObject(new TrackRequestModel { RequestUrl = path });
+            var json = JsonConvert.SerializeObject(new VerificationRequestModel { RequestUrl = path });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var requestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("/tracking", UriKind.Relative),
+                RequestUri = new Uri("/req", UriKind.Relative),
                 Content = content
             };
 
@@ -50,15 +50,15 @@ namespace ReqHub
             return response;
         }
 
-        public ClaimsIdentity CreateReqHubIdentity(TrackingResponseModel trackingResponse)
+        public ClaimsIdentity CreateReqHubIdentity(VerificationResponseModel verificationResponse)
         {
             var claims = new List<Claim>();
-            this.AddClaim(claims, ReqHubClaimTypes.ClientId, trackingResponse.ClientId);
-            this.AddClaim(claims, ReqHubClaimTypes.PlanName, trackingResponse.PlanName);
-            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanName, trackingResponse.NormalizedPlanName);
-            this.AddClaim(claims, ReqHubClaimTypes.PlanSku, trackingResponse.PlanSku);
-            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanSku, trackingResponse.NormalizedPlanSku);
-            this.AddClaim(claims, ReqHubClaimTypes.IsTrial, trackingResponse.IsTrial.ToString());
+            this.AddClaim(claims, ReqHubClaimTypes.ClientId, verificationResponse.ClientId);
+            this.AddClaim(claims, ReqHubClaimTypes.PlanName, verificationResponse.PlanName);
+            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanName, verificationResponse.NormalizedPlanName);
+            this.AddClaim(claims, ReqHubClaimTypes.PlanSku, verificationResponse.PlanSku);
+            this.AddClaim(claims, ReqHubClaimTypes.NormalizedPlanSku, verificationResponse.NormalizedPlanSku);
+            this.AddClaim(claims, ReqHubClaimTypes.IsTrial, verificationResponse.IsTrial.ToString());
 
             var reqHubIdentity = new ClaimsIdentity(claims: claims, authenticationType: "ReqHub");
             return reqHubIdentity;

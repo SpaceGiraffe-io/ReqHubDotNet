@@ -48,13 +48,13 @@ namespace ReqHubDotNet.Tests.Middleware
 
             var httpResponse = new HttpResponseMessage(statusCode);
 
-            var responseModel = new TrackingResponseModel { ClientId = "5" };
+            var responseModel = new VerificationResponseModel { ClientId = "5" };
             httpResponse.Content = new StringContent(JsonConvert.SerializeObject(responseModel), Encoding.UTF8, "application/json");
 
-            merchantClientMock.Setup(x => x.TrackAsync(It.IsAny<string>(), It.IsAny<IDictionary<string, string>>(), It.IsAny<CancellationToken>()))
+            merchantClientMock.Setup(x => x.VerifyAsync(It.IsAny<string>(), It.IsAny<IDictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(httpResponse);
 
-            merchantClientMock.Setup(x => x.CreateReqHubIdentity(It.IsAny<TrackingResponseModel>()))
+            merchantClientMock.Setup(x => x.CreateReqHubIdentity(It.IsAny<VerificationResponseModel>()))
                 .Returns(new ClaimsIdentity());
 
             RequestDelegate requestDelegate = (context) => Task.CompletedTask;

@@ -23,14 +23,14 @@ namespace ReqHub
         {
             var path = context.Request.Path;
             var headers = context.Request.Headers.ToDictionary(x => x.Key, x => x.Value.ToString());
-            var response = await this.merchantClient.TrackAsync(path, headers);
+            var response = await this.merchantClient.VerifyAsync(path, headers);
 
             if (response.IsSuccessStatusCode)
             {
-                var trackingResponseJson = await response.Content.ReadAsStringAsync();
-                var trackingResponse = JsonConvert.DeserializeObject<TrackingResponseModel>(trackingResponseJson);
+                var verificationResponseJson = await response.Content.ReadAsStringAsync();
+                var verificationResponse = JsonConvert.DeserializeObject<VerificationResponseModel>(verificationResponseJson);
 
-                var reqHubIdentity = this.merchantClient.CreateReqHubIdentity(trackingResponse);
+                var reqHubIdentity = this.merchantClient.CreateReqHubIdentity(verificationResponse);
                 context.User.AddIdentity(reqHubIdentity);
 
                 await this.next(context);
